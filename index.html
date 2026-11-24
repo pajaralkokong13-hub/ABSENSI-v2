@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Absensi 10 Kegiatan Kelas 10</title>
+<style>
+  *{box-sizing:border-box;font-family:system-ui,-apple-system,sans-serif}
+  body{background:#f1f5f9;margin:0;padding:12px;color:#1e293b}
+  .wrap{max-width:940px;margin:auto}
+  .head{background:linear-gradient(135deg,#0f766e,#0284c7,#4f46e5);color:#fff;padding:18px;border-radius:16px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
+  .head h1{margin:0;font-size:20px}.head p{margin:4px 0 0;font-size:12px;opacity:.9}
+  .dt-box{background:rgba(255,255,255,.2);padding:7px 10px;border-radius:10px;display:flex;gap:6px;align-items:center}
+  .dt-box input{border:none;padding:6px 8px;border-radius:6px;font-weight:700;font-size:13px;color:#1e293b}
+  .tabs{display:flex;gap:8px;margin-bottom:14px}
+  .tab{flex:1;padding:11px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;font-weight:700;font-size:13px;color:#475569;cursor:pointer}
+  .tab.act{background:#0284c7;color:#fff;border-color:#0284c7}
+  .sesi-bar{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:12px}
+  .sbtn{padding:8px 12px;border:1px solid #cbd5e1;background:#fff;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap;color:#475569;position:relative}
+  .sbtn.act{background:#4f46e5;color:#fff;border-color:#4f46e5}
+  .sbtn.done::after{content:"•";color:#10b981;font-size:18px;position:absolute;top:-2px;right:4px}
+  .box{background:#fff;padding:15px;border-radius:14px;border:1px solid #e2e8f0;margin-bottom:14px;display:none}
+  .box.show{display:block}
+  .meta-grid{display:grid;grid-template-columns:1.5fr 1fr 1.2fr;gap:8px;background:#f8fafc;padding:12px;border-radius:10px;border:1px solid #e2e8f0;margin-bottom:12px}
+  @media(max-width:640px){.meta-grid{grid-template-columns:1fr}}
+  .meta-grid label{display:block;font-size:11px;font-weight:700;color:#64748b;margin-bottom:3px}
+  .meta-grid input{width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:7px;font-size:13px;background:#fff}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+  .sc{background:#f8fafc;padding:8px;border-radius:10px;border:1px solid #e2e8f0;text-align:center}
+  .sc small{font-size:10px;font-weight:700;color:#64748b}.sc div{font-size:17px;font-weight:800}
+  .cH div{color:#10b981}.cS div{color:#f59e0b}.cI div{color:#3b82f6}.cA div{color:#ef4444}
+  .tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;margin-bottom:10px}
+  .tw{overflow-x:auto;border:1px solid #e2e8f0;border-radius:10px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{background:#f8fafc;color:#64748b;padding:9px 6px;border-bottom:1px solid #e2e8f0}
+  td{padding:8px 6px;border-bottom:1px solid #e2e8f0;text-align:center}
+  td.nm{text-align:left;font-weight:600;white-space:nowrap}
+  .st-grp{display:flex;gap:4px;justify-content:center}
+  .sb{padding:6px 10px;border:1px solid #cbd5e1;background:#f8fafc;border-radius:6px;font-weight:700;font-size:12px;cursor:pointer;color:#475569}
+  .sb.H{background:#10b981;color:#fff;border-color:#10b981}.sb.S{background:#f59e0b;color:#fff;border-color:#f59e0b}
+  .sb.I{background:#3b82f6;color:#fff;border-color:#3b82f6}.sb.A{background:#ef4444;color:#fff;border-color:#ef4444}
+  .ttd-wrap{margin-top:14px;background:#f8fafc;border:1px dashed #94a3b8;border-radius:12px;padding:12px;text-align:center}
+  .ttd-wrap p{margin:0 0 8px;font-size:12px;font-weight:700;color:#334155}
+  canvas{background:#fff;border:1px solid #cbd5e1;border-radius:8px;touch-action:none;cursor:crosshair;max-width:100%}
+  .btn{padding:8px 14px;border:none;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer}
+  .bp{background:#0284c7;color:#fff}.bg{background:#10b981;color:#fff}.bw{background:#22c55e;color:#fff}.brs{background:#e2e8f0;color:#475569}.bred{background:#fee2e2;color:#b91c1c}
+  .bd{padding:3px 8px;border-radius:12px;font-size:11px;font-weight:700}
+  .ok{background:#ecfdf5;color:#10b981}.mid{background:#fef3c7;color:#d97706}.low{background:#fef2f2;color:#ef4444}
+  .note-box{margin-top:14px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:12px;padding:12px}
+  .ttd-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+  @media(max-width:540px){.ttd-grid{grid-template-columns:1fr}}
+  .ttd-grid input{width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px}
+  textarea{width:100%;height:155px;padding:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;line-height:1.5}
+  .act{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:14px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div><h1>📋 Absensi Kegiatan Kelas 10</h1><p>11 Murid • 10 Sesi Kegiatan/Hari • TTD Guru</p></div>
+    <div class="dt-box">
+      <span style="font-size:12px">Tanggal:</span>
+      <input type="date" id="tgl-pilih" onchange="gantiTgl()">
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button type="button" class="tab act" onclick="goTab(0,this)">✍️ 1. Absen 10 Kegiatan</button>
+    <button type="button" class="tab" onclick="goTab(1,this)">📊 2. Rekap Bulanan & Wali Kelas</button>
+  </div>
+
+  <div class="box show" id="tab0">
+    <div class="sesi-bar" id="sesi-bar"></div>
+
+    <div class="meta-grid">
+      <div>
+        <label>📚 Nama Kegiatan / Mata Pelajaran (<span id="lbl-sesi">Sesi 1</span>):</label>
+        <input type="text" id="in-keg" placeholder="Contoh: Matematika / Upacara" oninput="simpanMeta()">
+      </div>
+      <div>
+        <label>⏰ Jam Kegiatan:</label>
+        <input type="text" id="in-jam" placeholder="Contoh: 07:00 - 08:30" oninput="simpanMeta()">
+      </div>
+      <div>
+        <label>👨‍🏫 Nama Guru / Pengisi:</label>
+        <input type="text" id="in-guru" placeholder="Contoh: Bpk. Ahmad, S.Pd." oninput="simpanMeta()">
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="sc cH"><small>HADIR</small><div id="nH">0</div></div>
+      <div class="sc cS"><small>SAKIT</small><div id="nS">0</div></div>
+      <div class="sc cI"><small>IZIN</small><div id="nI">0</div></div>
+      <div class="sc cA"><small>ALPA</small><div id="nA">0</div></div>
+    </div>
+
+    <div class="tools">
+      <strong style="font-size:13px" id="sub-tgl"></strong>
+      <div>
+        <button type="button" class="btn bg" onclick="setAll('H')">✅ Hadir Semua</button>
+        <button type="button" class="btn brs" onclick="setAll('')">Kosongkan</button>
+      </div>
+    </div>
+
+    <div class="tw">
+      <table>
+        <thead><tr><th style="width:38px">No</th><th style="text-align:left">Nama Siswa</th><th>Status</th><th>Ket</th></tr></thead>
+        <tbody id="tb-harian"></tbody>
+      </table>
+    </div>
+
+    <div class="ttd-wrap">
+      <p>✍️ Tanda Tangan Guru Pengisi (<span id="ttd-guru-lbl">Sesi 1</span>):</p>
+      <canvas id="pad" width="320" height="120"></canvas>
+      <div style="margin-top:8px">
+        <button type="button" class="btn bred" onclick="clearTTD()">🗑️ Hapus TTD</button>
+      </div>
+    </div>
+
+    <div class="act">
+      <button type="button" class="btn bw" onclick="waSesi()">📲 Kirim Absen Kegiatan Ini ke WA</button>
+    </div>
+  </div>
+
+  <div class="box" id="tab1">
+    <div class="tools">
+      <strong style="font-size:14px">Rekap Bulan: <span id="lbl-bln"></span></strong>
+      <input type="month" id="bln-pilih" onchange="renderBulan()" style="padding:6px;border:1px solid #cbd5e1;border-radius:6px;font-weight:700">
+    </div>
+    <p style="font-size:12px;color:#64748b;margin-top:0">Total sesi kegiatan tercatat bulan ini: <b id="tot-sesi">0</b> sesi</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>No</th><th style="text-align:left">Nama Siswa</th><th>H</th><th>S</th><th>I</th><th>A</th><th>Kehadiran</th></tr></thead>
+        <tbody id="tb-bulan"></tbody>
+      </table>
+    </div>
+
+    <div class="note-box">
+      <div class="ttd-grid">
+        <div>
+          <label style="font-size:12px;font-weight:700">👩‍🏫 Nama Wali Kelas:</label>
+          <input type="text" id="nama-wali" placeholder="Contoh: Ibu Siti Aminah, S.Pd." oninput="simpanProfil()">
+        </div>
+        <div>
+          <label style="font-size:12px;font-weight:700">✍️ Nama Sekretaris / Ketua Kelas:</label>
+          <input type="text" id="nama-sek" placeholder="Contoh: Aininda (Sekretaris)" oninput="simpanProfil()">
+        </div>
+      </div>
+      <label style="font-size:12px;font-weight:700;display:block;margin-bottom:4px">📝 Keterangan Otomatis untuk Wali Kelas:</label>
+      <textarea id="ket-wali"></textarea>
+    </div>
+
+    <div class="act">
+      <button type="button" class="btn bw" onclick="waBulan()">📲 Kirim Laporan ke WA Wali Kelas</button>
+      <button type="button" class="btn bp" onclick="salinLaporan()">📋 Salin Teks Laporan</button>
+      <button type="button" class="btn brs" onclick="resetAll()">🔄 Reset Semua Data</button>
+    </div>
+  </div>
+</div>
+<script>
+  var K = "absen10_10sesi_v1";
+  var KP = "absen10_profil_10s";
+  var N = ["Aininda","Desi","Devin","Jaka","Haifa","Hilman","Alfa","Pajar","Rifky","Siska","Winda"];
+  var db = JSON.parse(localStorage.getItem(K)) || {};
+  var profil = JSON.parse(localStorage.getItem(KP)) || { wali: "", sek: "" };
+  var sesiAktif = 1;
+
+  function getTgl() { return document.getElementById("tgl-pilih").value; }
+
+  function ensureSesi(t, s) {
+    if (!db[t]) db[t] = {};
+    if (!db[t][s]) db[t][s] = { keg: "", jam: "", guru: "", ttd: "", absen: {} };
+    return db[t][s];
+  }
+
+  function sv() {
+    localStorage.setItem(K, JSON.stringify(db));
+    renderSesiBar();
+    renderHarian();
+  }
+
+  function simpanProfil() {
+    profil.wali = document.getElementById("nama-wali").value;
+    profil.sek = document.getElementById("nama-sek").value;
+    localStorage.setItem(KP, JSON.stringify(profil));
+    renderBulan();
+  }
+
+  function goTab(i, el) {
+    document.querySelectorAll(".box").forEach(function(b, x) { b.classList.toggle("show", x === i); });
+    document.querySelectorAll(".tab").forEach(function(t) { t.classList.remove("act"); });
+    el.classList.add("act");
+    if (i === 1) renderBulan();
+  }
+
+  function pilihSesi(s) {
+    sesiAktif = s;
+    renderSesiBar();
+    renderHarian();
+    loadTTD();
+  }
+
+  function renderSesiBar() {
+    var t = getTgl();
+    var bar = "";
+    for (var s = 1; s <= 10; s++) {
+      var dataSesi = db[t] && db[t][s];
+      var terisi = dataSesi && (dataSesi.keg || Object.keys(dataSesi.absen || {}).some(function(k) { return dataSesi.absen[k]; }));
+      bar += "<button type='button' class='sbtn " + (s === sesiAktif ? "act " : "") + (terisi ? "done" : "") + "' onclick='pilihSesi(" + s + ")'>Keg " + s + "</button>";
+    }
+    document.getElementById("sesi-bar").innerHTML = bar;
+  }
+
+  function gantiTgl() {
+    var t = getTgl();
+    if (t) document.getElementById("bln-pilih").value = t.slice(0, 7);
+    renderSesiBar();
+    renderHarian();
+    loadTTD();
+    renderBulan();
+  }
+
+  function simpanMeta() {
+    var dSesi = ensureSesi(getTgl(), sesiAktif);
+    dSesi.keg = document.getElementById("in-keg").value;
+    dSesi.jam = document.getElementById("in-jam").value;
+    dSesi.guru = document.getElementById("in-guru").value;
+    localStorage.setItem(K, JSON.stringify(db));
+    renderSesiBar();
+  }
+
+  function setSt(idx, st) {
+    var dSesi = ensureSesi(getTgl(), sesiAktif);
+    dSesi.absen[idx] = (dSesi.absen[idx] === st) ? "" : st;
+    sv();
+  }
+
+  function setAll(st) {
+    var dSesi = ensureSesi(getTgl(), sesiAktif);
+    for (var i = 0; i < N.length; i++) dSesi.absen[i] = st;
+    sv();
+  }
+
+  function renderHarian() {
+    var t = getTgl();
+    var indo = t ? new Date(t + "T00:00:00").toLocaleDateString("id-ID", { weekday: "long", day: "numeric", month: "short", year: "numeric" }) : "-";
+    document.getElementById("sub-tgl").innerText = indo + " • Kegiatan " + sesiAktif;
+    document.getElementById("lbl-sesi").innerText = "Kegiatan " + sesiAktif;
+    document.getElementById("ttd-guru-lbl").innerText = "Kegiatan " + sesiAktif;
+
+    var dSesi = (db[t] && db[t][sesiAktif]) ? db[t][sesiAktif] : { keg: "", jam: "", guru: "", absen: {} };
+    document.getElementById("in-keg").value = dSesi.keg || "";
+    document.getElementById("in-jam").value = dSesi.jam || "";
+    document.getElementById("in-guru").value = dSesi.guru || "";
+
+    var rec = dSesi.absen || {};
+    var html = "", cH = 0, cS = 0, cI = 0, cA = 0;
+    for (var i = 0; i < N.length; i++) {
+      var st = rec[i] || "";
+      if (st === "H") cH++; else if (st === "S") cS++; else if (st === "I") cI++; else if (st === "A") cA++;
+      var ket = st === "H" ? "Hadir" : st === "S" ? "Sakit" : st === "I" ? "Izin" : st === "A" ? "Alpa" : "-";
+      html += "<tr><td>" + (i + 1) + "</td><td class='nm'>" + N[i] + "</td><td><div class='st-grp'>" +
+        "<button type='button' class='sb " + (st === "H" ? "H" : "") + "' onclick='setSt(" + i + ",\"H\")'>H</button>" +
+        "<button type='button' class='sb " + (st === "S" ? "S" : "") + "' onclick='setSt(" + i + ",\"S\")'>S</button>" +
+        "<button type='button' class='sb " + (st === "I" ? "I" : "") + "' onclick='setSt(" + i + ",\"I\")'>I</button>" +
+        "<button type='button' class='sb " + (st === "A" ? "A" : "") + "' onclick='setSt(" + i + ",\"A\")'>A</button>" +
+        "</div></td><td><b>" + ket + "</b></td></tr>";
+    }
+    document.getElementById("tb-harian").innerHTML = html;
+    document.getElementById("nH").innerText = cH;
+    document.getElementById("nS").innerText = cS;
+    document.getElementById("nI").innerText = cI;
+    document.getElementById("nA").innerText = cA;
+  }
+  var cvs = document.getElementById("pad"), ctx = cvs.getContext("2d"), drawing = false;
+  ctx.lineWidth = 2.2; ctx.lineCap = "round"; ctx.strokeStyle = "#1e293b";
+
+  function getPos(e) {
+    var r = cvs.getBoundingClientRect();
+    var cx = e.touches ? e.touches.clientX : e.clientX;
+    var cy = e.touches ? e.touches.clientY : e.clientY;
+    return { x: (cx - r.left) * (cvs.width / r.width), y: (cy - r.top) * (cvs.height / r.height) };
+  }
+  function startDraw(e) { drawing = true; var p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); }
+  function moveDraw(e) { if (!drawing) return; e.preventDefault(); var p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); }
+  function endDraw() {
+    if (!drawing) return;
+    drawing = false;
+    var dSesi = ensureSesi(getTgl(), sesiAktif);
+    dSesi.ttd = cvs.toDataURL();
+    localStorage.setItem(K, JSON.stringify(db));
+    renderSesiBar();
+  }
+  cvs.addEventListener("mousedown", startDraw); cvs.addEventListener("mousemove", moveDraw); window.addEventListener("mouseup", endDraw);
+  cvs.addEventListener("touchstart", startDraw, { passive: false }); cvs.addEventListener("touchmove", moveDraw, { passive: false }); cvs.addEventListener("touchend", endDraw);
+
+  function clearTTD() {
+    ctx.clearRect(0, 0, cvs.width, cvs.height);
+    var dSesi = ensureSesi(getTgl(), sesiAktif);
+    dSesi.ttd = "";
+    localStorage.setItem(K, JSON.stringify(db));
+  }
+
+  function loadTTD() {
+    ctx.clearRect(0, 0, cvs.width, cvs.height);
+    var t = getTgl();
+    var imgData = (db[t] && db[t][sesiAktif]) ? db[t][sesiAktif].ttd : "";
+    if (imgData) {
+      var img = new Image();
+      img.onload = function() { ctx.drawImage(img, 0, 0); };
+      img.src = imgData;
+    }
+  }
+
+  function renderBulan() {
+    var ym = document.getElementById("bln-pilih").value;
+    if (!ym) return;
+    var namaBln = new Date(ym + "-01T00:00:00").toLocaleDateString("id-ID", { month: "long", year: "numeric" });
+    document.getElementById("lbl-bln").innerText = namaBln;
+
+    var totalSesi = 0;
+    var rekap = N.map(function() { return { H: 0, S: 0, I: 0, A: 0 }; });
+
+    Object.keys(db).forEach(function(tglKey) {
+      if (tglKey.indexOf(ym) === 0) {
+        var hariObj = db[tglKey];
+        for (var s = 1; s <= 10; s++) {
+          if (hariObj[s] && hariObj[s].absen) {
+            var rec = hariObj[s].absen;
+            var adaIsi = false;
+            for (var i = 0; i < N.length; i++) {
+              if (rec[i]) { adaIsi = true; rekap[i][rec[i]]++; }
+            }
+            if (adaIsi) totalSesi++;
+          }
+        }
+      }
+    });
+
+    document.getElementById("tot-sesi").innerText = totalSesi;
+    var html = "", totalHadirSemua = 0, rajinList = [], catatanTidakHadir = [];
+
+    for (var i = 0; i < N.length; i++) {
+      var r = rekap[i];
+      totalHadirSemua += r.H;
+      var pct = totalSesi ? Math.round((r.H / totalSesi) * 100) : 0;
+      var cls = pct >= 85 ? "ok" : pct >= 60 ? "mid" : "low";
+      if (totalSesi > 0 && r.H === totalSesi) rajinList.push(N[i]);
+      if (r.S > 0 || r.I > 0 || r.A > 0) {
+        var det = [];
+        if (r.S > 0) det.push("Sakit " + r.S + " sesi");
+        if (r.I > 0) det.push("Izin " + r.I + " sesi");
+        if (r.A > 0) det.push("Alpa " + r.A + " sesi");
+        catatanTidakHadir.push("- " + N[i] + " (" + det.join(", ") + ")");
+      }
+      html += "<tr><td>" + (i + 1) + "</td><td class='nm'>" + N[i] + "</td>" +
+        "<td style='color:#10b981;font-weight:700'>" + r.H + "</td>" +
+        "<td style='color:#f59e0b;font-weight:700'>" + r.S + "</td>" +
+        "<td style='color:#3b82f6;font-weight:700'>" + r.I + "</td>" +
+        "<td style='color:#ef4444;font-weight:700'>" + r.A + "</td>" +
+        "<td><span class='bd " + cls + "'>" + pct + "%</span></td></tr>";
+    }
+    document.getElementById("tb-bulan").innerHTML = html;
+
+    var rataKelas = totalSesi ? Math.round((totalHadirSemua / (totalSesi * N.length)) * 100) : 0;
+    var sapaanWali = profil.wali.trim() || "Bapak/Ibu Wali Kelas 10";
+    var namaPengirim = profil.sek.trim() || "Pengurus Kelas 10";
+
+    var ketText = "Assalamu'alaikum Wr. Wb. / Selamat Pagi " + sapaanWali + ".\n";
+    ketText += "Berikut laporan rekapitulasi absensi kegiatan Kelas 10 (11 siswa) periode " + namaBln + " dari total " + totalSesi + " sesi kegiatan tercatat:\n\n";
+    ketText += "• Rata-rata Kehadiran Kelas: " + rataKelas + "%\n";
+    ketText += "• Siswa Hadir Penuh (100%): " + (rajinList.length ? rajinList.join(", ") : "-") + "\n";
+    ketText += "• Catatan Ketidakhadiran:\n" + (catatanTidakHadir.length ? catatanTidakHadir.join("\n") : "- Nihil (Semua siswa hadir penuh)") + "\n\n";
+    ketText += "Demikian laporan absensi bulanan ini kami sampaikan. Terima kasih.\n\n";
+    ketText += "Hormat kami,\n" + namaPengirim + "\nMengetahui,\n" + sapaanWali;
+    document.getElementById("ket-wali").value = ketText;
+  }
+
+  function waSesi() {
+    var t = getTgl();
+    var indo = document.getElementById("sub-tgl").innerText;
+    var dSesi = (db[t] && db[t][sesiAktif]) ? db[t][sesiAktif] : { keg: "-", jam: "-", guru: "-", ttd: "", absen: {} };
+    var rec = dSesi.absen || {};
+    var txt = "*📋 ABSENSI KEGIATAN KELAS 10*\n• Hari/Tgl: " + indo + "\n• Kegiatan: " + (dSesi.keg || "Kegiatan " + sesiAktif) + "\n• Jam: " + (dSesi.jam || "-") + "\n• Guru/Pengisi: " + (dSesi.guru || "-") + (dSesi.ttd ? " (✅ Sudah TTD)" : "") + "\n\n";
+    for (var i = 0; i < N.length; i++) {
+      var st = rec[i] || "-";
+      var ico = st === "H" ? "✅ Hadir" : st === "S" ? "🤒 Sakit" : st === "I" ? "📩 Izin" : st === "A" ? "❌ Alpa" : "⏳ -";
+      txt += (i + 1) + ". " + N[i] + ": " + ico + "\n";
+    }
+    txt += "\n*Ringkasan:* H=" + document.getElementById("nH").innerText + " | S=" + document.getElementById("nS").innerText + " | I=" + document.getElementById("nI").innerText + " | A=" + document.getElementById("nA").innerText;
+    window.open("https://wa.me" + encodeURIComponent(txt), "_blank");
+  }
+
+  function buatTeksBulanan() {
+    var namaBln = document.getElementById("lbl-bln").innerText;
+    var totS = document.getElementById("tot-sesi").innerText;
+    var ketWali = document.getElementById("ket-wali").value;
+    var txt = "*📊 REKAP ABSENSI BULANAN KELAS 10*\n*Periode: " + namaBln + " (" + totS + " Sesi Kegiatan)*\n\n";
+    document.getElementById("tb-bulan").querySelectorAll("tr").forEach(function(tr) {
+      var td = tr.querySelectorAll("td");
+      txt += td.innerText + ". " + td.innerText + " -> H:" + td.innerText + " S:" + td.innerText + " I:" + td.innerText + " A:" + td.innerText + " (" + td.innerText + ")\n";
+    });
+    txt += "\n*📝 KETERANGAN & PENGESAHAN:*\n" + ketWali;
+    return txt;
+  }
+
+  function waBulan() { window.open("https://wa.me" + encodeURIComponent(buatTeksBulanan()), "_blank"); }
+  function salinLaporan() {
+    var txt = buatTeksBulanan();
+    if (navigator.clipboard) { navigator.clipboard.writeText(txt); alert("Teks laporan wali kelas berhasil disalin!"); }
+    else { prompt("Salin teks laporan:", txt); }
+  }
+  function resetAll() { if (confirm("Hapus semua data absensi 10 kegiatan?")) { localStorage.removeItem(K); location.reload(); } }
+
+  var nw = new Date();
+  var yyyy = nw.getFullYear(), mm = String(nw.getMonth() + 1).padStart(2, "0"), dd = String(nw.getDate()).padStart(2, "0");
+  document.getElementById("tgl-pilih").value = yyyy + "-" + mm + "-" + dd;
+  document.getElementById("bln-pilih").value = yyyy + "-" + mm;
+  document.getElementById("nama-wali").value = profil.wali;
+  document.getElementById("nama-sek").value = profil.sek;
+  renderSesiBar();
+  renderHarian();
+  loadTTD();
+  renderBulan();
+</script>
+</body>
+</html>
